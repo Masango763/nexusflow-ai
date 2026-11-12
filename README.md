@@ -22,6 +22,14 @@ When a vendor submits an invoice, our multi-agent swarm instantly evaluates risk
 
 ---
 
+
+[![Streamlit App](https://static.shields.io/badge/Streamlit-Live%20App-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white)](https://nexusflow-ai-6wtdgjyd5qoxff9k7mcax8.streamlit.app/)
+[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![PayPal Hackathon](https://img.shields.io/badge/PayPal-AI%20Hackathon-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://developer.paypal.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+
+
 ## 🛠️ Technology Stack
 
 * **Backend:** Python, FastAPI, Uvicorn, Pydantic, Requests
