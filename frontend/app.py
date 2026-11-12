@@ -83,3 +83,7 @@ elif workspace == "⚖️ Disputes & Appeals Queue":
 elif workspace == "📜 Audit Ledger":
     st.markdown('<div class="hero-banner"><h1 class="hero-title">Immutable Audit Ledger</h1><p class="hero-sub">Complete cryptographic activity log.</p></div>', unsafe_allow_html=True)
     st.dataframe(pd.DataFrame(st.session_state.ledger), use_container_width=True, hide_index=True)
+
+# Safe menu routing fallback
+if "menu_selection" in locals() and menu_selection in ["Immutable Audit Ledger", "App Log Audit"]:
+    render_log_audit_section()
