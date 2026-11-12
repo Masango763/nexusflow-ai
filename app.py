@@ -2,73 +2,77 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
-st.set_page_config(page_title="NexusFlow AI - Enterprise Treasury", layout="wide")
+st.set_page_config(page_title="NexusFlow AI - PayPal AI Hackathon Edition", layout="wide")
 
-# Sidebar Navigation
-st.sidebar.title("⚡ NEXUSFLOW AI")
-st.sidebar.markdown("Autonomous Agentic Commerce Engine")
+# Sidebar Navigation matching your original interface
+st.sidebar.image("https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg", width=50)
+st.sidebar.title("NEXUSFLOW AI")
+st.sidebar.markdown("PayPal AI Hackathon Edition")
 st.sidebar.markdown("---")
 
+st.sidebar.markdown("COMMAND MODULES")
 menu_selection = st.sidebar.radio(
-    "COMMAND MODULES",
+    "",
     [
-        "Executive Treasury Overview",
-        "Multi-Agent Swarm Execution",
-        "PayPal Direct Sandbox Gateway",
-        "Immutable Audit Ledger"
-    ]
+        "Executive Overview",
+        "Multi-Agent Swarm",
+        "Disputes & Appeals Queue",
+        "Audit Ledger"
+    ],
+    label_visibility="collapsed"
 )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 🔌 Live System Telemetry")
-st.sidebar.error("FastAPI Engine: ONLINE")
+st.sidebar.success("FastAPI Engine: ONLINE")
 
-def render_log_audit_section():
-    st.subheader("🛡️ Manage App Log Audit & Compliance Trail")
-    st.markdown("Real-time telemetry and immutable audit logs for agent decisions, API calls, and transaction resolutions.")
+def render_audit_ledger():
+    st.markdown("### Immutable Audit Ledger")
+    st.markdown("Complete cryptographic activity log.")
 
     logs_data = [
-        {"timestamp": "2026-11-12 21:14:02", "level": "INFO", "agent": "RiskAssessmentAgent", "event": "Evaluated transaction velocity for vendor #V-9021", "status": "APPROVED"},
-        {"timestamp": "2026-11-12 21:13:50", "level": "WARNING", "agent": "ComplianceAuditor", "event": "Flagged missing tax identifier on invoice #INV-4402", "status": "FLAGGED"},
-        {"timestamp": "2026-11-12 21:12:15", "level": "SUCCESS", "agent": "PayPalDisbursement", "event": "Executed v1 Payout for USD $4,500.00 via Sandbox", "status": "COMPLETED"},
-        {"timestamp": "2026-11-12 21:10:05", "level": "INFO", "agent": "SystemCore", "event": "FastAPI session handshake validated securely", "status": "CONNECTED"}
+        {"Timestamp": "2026-11-12 09:14:22", "Vendor": "cloud-ops@aws-partner.io", "Amount": "$4,200.00", "Risk Score": "0.08 (Low)", "Status": "✔ Settled"},
+        {"Timestamp": "2026-11-12 11:30:51", "Vendor": "unknown-offshore@shell.biz", "Amount": "$14,500.00", "Risk Score": "0.89 (High)", "Status": "🔴 Blocked"}
     ]
-    df_logs = pd.DataFrame(logs_data)
+    df = pd.DataFrame(logs_data)
+    st.dataframe(df, use_container_width=True)
 
-    col1, col2 = st.columns([2, 2])
-    with col1:
-        selected_level = st.selectbox("Filter by Log Level", ["ALL", "INFO", "WARNING", "SUCCESS", "ERROR"])
-    with col2:
-        search_query = st.text_input("Search audit logs", placeholder="Type keyword...")
-
-    filtered_df = df_logs.copy()
-    if selected_level != "ALL":
-        filtered_df = filtered_df[filtered_df["level"] == selected_level]
-    if search_query:
-        filtered_df = filtered_df[filtered_df.apply(lambda row: row.astype(str).str.contains(search_query, case=False).any(), axis=1)]
-
-    st.dataframe(filtered_df, use_container_width=True)
-
-    csv_data = filtered_df.to_csv(index=False).encode('utf-8')
+    csv_data = df.to_csv(index=False).encode('utf-8')
     st.download_button(
-        label="📥 Export Full Audit Log (CSV)",
+        label="📥 Export Compliance CSV",
         data=csv_data,
-        file_name=f"nexusflow_audit_logs_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+        file_name=f"nexusflow_audit_ledger_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
         mime="text/csv"
     )
 
-# Main Content Routing
-if menu_selection == "Executive Treasury Overview":
-    st.title("📊 Executive Treasury Command Center")
-    st.markdown("Monitor real-time system uptime, processed liquidity volume, and fraud mitigation statistics.")
+# Main Routing matching your original design
+if menu_selection == "Executive Overview":
+    st.markdown("## Treasury Command Center")
+    st.markdown("Autonomous B2B liquidity & compliance auditing.")
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Volume Processed", "$64,820.00", "+18.4%")
+    with col2:
+        st.metric("Active Agents", "3 Online", "Optimal")
+    with col3:
+        st.metric("Blocked Disputed Txns", "1 Pending", "Action Required")
 
-elif menu_selection == "Multi-Agent Swarm Execution":
-    st.title("🤖 Multi-Agent Swarm Execution")
-    st.markdown("Run live agent workflows for automated risk assessment, compliance checking, and escrow creation.")
+elif menu_selection == "Multi-Agent Swarm":
+    st.markdown("## Agentic Invoice Auditor")
+    st.markdown("Simulate risk evaluation & automated settlement.")
+    
+    st.text_input("Vendor Email", value="partner@business.com")
+    st.text_input("Amount ($)", value="2500.00")
+    if st.button("Run Multi-Agent Swarm Evaluation"):
+        st.success("Risk Assessment Agent: Passed (Score 0.04) | PayPal Payout v1 Queued Successfully!")
 
-elif menu_selection == "PayPal Direct Sandbox Gateway":
-    st.title("💳 PayPal Direct Sandbox Gateway")
-    st.markdown("Test raw v2 Checkout Orders and v1 Payout requests directly against PayPal Sandbox APIs.")
+elif menu_selection == "Disputes & Appeals Queue":
+    st.markdown("## Disputes & Appeals Review Queue")
+    st.markdown("Manually review, override, and force-settle transactions flagged by the Risk Agent.")
+    st.warning("⚠️ 1 High-Risk Transaction Flagged for Manual Review")
+    if st.button("Force-Override & Approve Payout"):
+        st.success("Transaction override logged to immutable audit trail.")
 
-elif menu_selection in ["Immutable Audit Ledger", "App Log Audit"]:
-    render_log_audit_section()
+elif menu_selection == "Audit Ledger":
+    render_audit_ledger()
